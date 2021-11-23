@@ -76,18 +76,14 @@ services:
       - ./hue-overrides.ini:/usr/share/hue/desktop/conf/hue-overrides.ini
     links:
       - huedb
-  edge:
-    image: jcrist/jupyterhub-hadoop-demo
-    user: root
-    environment:
-      - JHUB_AUTHENTICATOR=${JHUB_AUTHENTICATOR:-dummy}
-    command: supervisord -c /etc/edge.supervisord.conf
-    container_name: edge
-    hostname: edge
-    domainname: example.com
-    ports:
-      - 7777:8888  # jupyterhub
 
+  pyspark-notebook:
+      image: jupyter/pyspark-notebook
+      user: root
+      container_name: pyspark-notebook
+      hostname: pyspark-notebook
+      ports:
+        - 8080:8888  
 
 volumes:
   namenode:
